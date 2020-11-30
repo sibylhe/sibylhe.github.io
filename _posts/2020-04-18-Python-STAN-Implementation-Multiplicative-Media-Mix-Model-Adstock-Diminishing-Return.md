@@ -2,7 +2,6 @@
 layout: post
 title: 'Python/STAN Implementation of Multiplicative Media Mix Model'
 subtitle: 'Deep Dive into Adstock, Diminishing Return, ROAS and mROAS'
-date: 2020-04-18
 author: Sibyl He
 categories: Tech
 cover: 'http://on2171g4d.bkt.clouddn.com/jekyll-theme-h2o-postcover.jpg'
