@@ -1,3 +1,12 @@
+---
+layout: post
+title: 'Implementation of Multiplicative Media Mix Model, Adstock and Diminishing Return (with python/STAN example)'
+subtitle: ''
+date: 2020-04-18
+categories: 技术
+cover: 'http://on2171g4d.bkt.clouddn.com/jekyll-theme-h2o-postcover.jpg'
+tags: python STAN MMM eCommerce Marketing Advertising
+---
 # Implementation of Multiplicative Media Mix Model, Adstock and Diminishing Return (with python/STAN example)
 The methodology of this project is based on [this paper](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46001.pdf) by Google, but is applied to a more complicated, real-world setting, where 1) there are 13 media channels and 46 control variables; 2) models are built in a stacked way.    
 Code and simulated dataset are available on my github repo: https://github.com/sibylhe/mmm_stan
