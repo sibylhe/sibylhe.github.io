@@ -39,22 +39,22 @@ Marketing Mix Model,  or  Media Mix Model (MMM) is used by advertisers to measur
 
 **Actual Customer Journey: Multiple Touchpoints**    
 A customer saw a product on TV > clicked on a display ad > clicked on a paid seach ad > made a purchase of $30. In this case, 3 touchpoints contributed to the conversion, and they should all get credits for this conversion.    
-![actual customer journey - multiple touchpoints](img/mmm_stan_multitouch.png)    
+![actual customer journey - multiple touchpoints](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_multitouch.png)    
 
 ​    
 
 **What's trackable: Last Digital Touchpoint**    
 Usually, only the last digital touchpoint can be tracked. In this case, SEM, and it will get all credits for this conversion.    
-![what can be tracked - last touchpoint](img/mmm_stan_lasttouch.png)    
+![what can be tracked - last touchpoint](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_lasttouch.png)    
 So, a good attribution model should take into account all the relevant variables leading to conversion.    
 
 ​    
 
 ## 1.1 Multiplicative MMM
 Since media channels work interactively, a multiplicative model structure is adopted:    
-![multiplicative MMM](img/mmm_stan_formular_mmm_multiplicative.png)
+![multiplicative MMM](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_formular_mmm_multiplicative.png)
 Take log of both sides, we get the linear form (log-log model):    
-![multiplicative MMM - linear form](img/mmm_stan_formular_mmm_linear.png)    
+![multiplicative MMM - linear form](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_formular_mmm_linear.png)    
 
 **Constraints on Coefficients**
 
@@ -66,23 +66,23 @@ Take log of both sides, we get the linear form (log-log model):
 
 ## 1.2 Adstock
 Media effect on sales may lag behind the original exposure and extend several weeks. The carry-over effect is modeled by Adstock:    
-![adstock transformation](img/mmm_stan_formular_adstock.png)    
+![adstock transformation](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_formular_adstock.png)    
 L: length of the media effect    
 P: peak/delay of the media effect, how many weeks it's lagging behind first exposure    
 D: decay/retention rate of the media channel, concentration of the effect    
 The media effect of current weeks is a weighted average of current week and previous (L− 1) weeks.    
     
 **Adstock Example**    
-![adstock example](img/mmm_stan_adstock_example.png)    
+![adstock example](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_adstock_example.png)    
 
 ​    
 
 **Adstock with Varying Decay**    
 The larger the decay, the more scattered the effect.    
-![adstock parameter - decay](img/mmm_stan_adstock_decay.png)    
+![adstock parameter - decay](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_adstock_decay.png)    
 **Adstock with Varying Length**    
 The impact of length is relatively minor. In model training, length could be fixed to 8 weeks or a period long enough for the media effect to finish.    
-![adstock parameter - length](img/mmm_stan_adstock_length.png)   
+![adstock parameter - length](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_adstock_length.png)   
       
 
 
@@ -138,12 +138,12 @@ def adstock_transform(df, md_cols, adstock_params):
 
 ## 1.2 Diminishing Return    
 After a certain saturation point, increasing spend will yield diminishing marginal return, the channel will be losing efficiency as you keep overspending on it. The diminishing return is modeled by Hill function:    
-![Hill function](img/mmm_stan_formular_hill.png)    
+![Hill function](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_formular_hill.png)    
 K: half saturation point    
 S: slope    
     
 **Hill function with varying K and S**
-![Hill function with varying K and S](img/mmm_stan_hill_function_demo.png)    
+![Hill function with varying K and S](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_hill_function_demo.png)    
 
 ​    
 
@@ -331,21 +331,21 @@ The model is built in a stacked way. Three models are trained:
 - Control Model
 - Marketing Mix Model
 - Diminishing Return Model    
-![mmm_stan_model_architecture.png](img/mmm_stan_model_architecture.png)
+![mmm_stan_model_architecture.png](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_model_architecture.png)
 
 ​    
 
 ## 2.1 Control Model / Base Sales Model    
 
 **Goal**: predict base sales (X_ctrl) as an input variable to MMM, this represents the baseline sales trend without any marketing activities.    
-![control model formular.png](img/mmm_stan_model_control.png)    
+![control model formular.png](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_model_control.png)    
 X1: control variables positively related with sales, including macro economy, store count, markdown, holiday.    
 X2: control variables that may have either positive or negtive impact on sales: seasonality.    
 Target variable: ln(sales).    
 The variables are centralized by mean.
     
 **Priors**    
-![control model priors](img/mmm_stan_model_control_prior.png)    
+![control model priors](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_model_control_prior.png)    
 
 ​    
 
@@ -476,7 +476,7 @@ MAPE of control model: 8.63%
 - Find appropriate adstock parameters for media channels;
 - Decompose sales to media channels' contribution (and non-marketing contribution).
 
-![marketing mix model formular](img/mmm_stan_model_mmm.png)    
+![marketing mix model formular](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_model_mmm.png)    
 L: length of media impact    
 P: peak of media impact    
 D: decay of media impact    
@@ -485,7 +485,7 @@ Target variable: ln(sales)
 Variables are centralized by mean.
     
 **Priors**    
-![marketing mix model priors](img/mmm_stan_model_mmm_prior.png) 
+![marketing mix model priors](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_model_mmm_prior.png) 
      
 
 
@@ -619,7 +619,7 @@ mmm = extract_mmm(fit2, max_lag=max_lag, media_vars=mdip_cols, ctrl_vars=['base_
 
 **Distribution of Media Coefficients**    
 red line: mean, green line: median    
-![media coefficients distribution](img/mmm_stan_media_coefficient.png)
+![media coefficients distribution](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_media_coefficient.png)
 
 
 
@@ -627,10 +627,10 @@ red line: mean, green line: median
 
 Each media channel's contribution = total sales - sales upon removal of the channel    
 In the previous model fitting step, parameters of the log-log model have been found:    
-![mmm_stan_decompose_contrib1](img/mmm_stan_decompose_contrib1.png)    
+![mmm_stan_decompose_contrib1](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_decompose_contrib1.png)    
 Plug them into the multiplicative model:    
-![mmm_stan_decompose_contrib2](img/mmm_stan_decompose_contrib2.png)    
-![mmm_stan_decompose_contrib3](img/mmm_stan_decompose_contrib3.png)    
+![mmm_stan_decompose_contrib2](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_decompose_contrib2.png)    
+![mmm_stan_decompose_contrib3](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_decompose_contrib3.png)    
 
 
 ```python
@@ -755,7 +755,7 @@ MAPE (multiplicative model):  15.71%
 ## 2.3 Diminishing Return Model    
 
 **Goal**: for each channel, find the relationship (fit a Hill function) between spending and contribution, so that ROAS and marginal ROAS can be calculated.    
-![diminishing return model formular](img/mmm_stan_model_return.png)    
+![diminishing return model formular](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_model_return.png)    
 x: adstocked media channel spending   
 K: half saturation    
 S: shape    
@@ -763,7 +763,7 @@ Target variable: the media channel's contribution
 Variables are centralized by mean.
     
 **Priors**    
-![diminishing return model priors](img/mmm_stan_model_return_prior.png)          
+![diminishing return model priors](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_model_return_prior.png)          
 **Implementation**    
 
 
@@ -890,11 +890,11 @@ for md in list(hill_models.keys()):
 ```
 
 **Distribution of K (Half Saturation Point)**    
-![half saturation distribution](img/mmm_stan_ec.png)    
+![half saturation distribution](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_ec.png)    
 **Distribution of S (Slope)**    
-![slope distribution](img/mmm_stan_slope.png)    
+![slope distribution](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_slope.png)    
 **Diminishing Return Model (Fitted Hill Curve)**    
-![fitted hill](img/mmm_stan_hill.png)    
+![fitted hill](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_hill.png)    
 
 
 
@@ -943,7 +943,7 @@ roas1y_df['roas_median'] = weekly_roas[-52:].apply(np.median, axis=0)
 
 **Distribution of Weekly ROAS** (Recent 1 Year)    
 red line: mean, green line: median
-![weekly roas](img/mmm_stan_dist_roas_1y.png)
+![weekly roas](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_dist_roas_1y.png)
 
 
 
@@ -1120,15 +1120,15 @@ for md in list(hill_models.keys()):
 # 3. Results & Marketing Budget Optimization    
 **Media Channel Contribution**    
 80% sales are contributed by non-marketing factors, marketing channels contributed 20% sales.    
-![marketing contribution plot](img/mmm_stan_media_contribution.png)    
+![marketing contribution plot](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_media_contribution.png)    
 Top contributors: TV, affiliates, SEM    
-![media contribution percentage plot](img/mmm_stan_media_contribution_pct.png)    
+![media contribution percentage plot](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_media_contribution_pct.png)    
 **ROAS**    
 High ROAS: TV, insert, online display    
-![media channels contribution roas plot](img/mmm_stan_media_contrib_roas.png)    
+![media channels contribution roas plot](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_media_contrib_roas.png)    
 **mROAS**    
 High mROAS: TV, insert, radio, online display    
-![media channels roas mroas plot](img/mmm_stan_media_roas_mroas.png)    
+![media channels roas mroas plot](https://github.com/sibylhe/mmm_stan/tree/main/img/mmm_stan_media_roas_mroas.png)    
 Note: trivial channels: newspaper, digital audio, digital video, social (spending/impression too small to be qualified, so that their results are not trustworthy).
 
 
@@ -1176,4 +1176,4 @@ os.environ['CXX'] = 'g++-10'
 
 
 
-**Thanks for reading! If you like this project, please leave a :star2: on [my github](https://github.com/sibylhe/mmm_stan) :)**
+**Thanks for reading! If you like this project, please leave a star on [my github](https://github.com/sibylhe/mmm_stan) :)**
